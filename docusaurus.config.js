@@ -49,8 +49,8 @@ module.exports = {
         {
           title: 'Sommaire',
           items: [
-            { label: 'Accueil', to: '/' },
-            { label: 'Présentation', to: '/presentation' },
+            { label: 'Accueil', to: '/rapportstage/' },
+            { label: 'Présentation', to: '/rapportstage/presentation' },
           ],
         },
       ],
