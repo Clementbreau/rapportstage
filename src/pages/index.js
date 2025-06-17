@@ -44,7 +44,7 @@ export default function Home() {
 
     // Si authentifié, rediriger vers la documentation
     if (typeof window !== 'undefined') {
-        window.location.href = '/rapportstage/introduction';
+        window.location.href = '/bilanbutinfo/introduction';
     }
 
     return null;

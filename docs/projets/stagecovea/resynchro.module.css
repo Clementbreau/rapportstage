@@ -13,8 +13,8 @@
 .right {
     flex: 1;
     min-width: 300px;
-    background: #f9f9f9;
-    border-left: 4px solid #d3d3d3;
+    background-color: var(--ifm-background-surface-color);
+    border-left: 4px solid var(--ifm-toc-border-color);
     padding: 1rem;
     border-radius: 6px;
 }

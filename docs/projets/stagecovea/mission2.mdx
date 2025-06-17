@@ -1,6 +1,10 @@
 ---
 hide_table_of_contents: true
 ---
+
+# Mission 2 — Resynchronisation RGPD des contrats entre DB2 et le Datahub
+
+
 import React from 'react';
 import CodeBlock from '@theme/CodeBlock';
 import styles from './resynchro.module.css';
@@ -10,13 +14,18 @@ import styles from './resynchro.module.css';
 Dans le cadre de la mise en place de la norme RGPD, il y a eu la mise en place d'une purge sur la base de donnée contenant les contrats/devis ajoutés par les utilisateurs (DB2), or la base de donnée du datahub n'a pas subis ces memes mises à jours, et donc les données n'avaient pas été purgés de ce coté.
 Le composant lié aux contrats et devis automobile (**prodauto**) fait partie des composants afféctés par cela.
 
-Pour assurer la bonne **conformité** avec les exigences RGPD, il faut donc **resynchroniser** ces données supprimées en les réintégrant dans le processus de purge, afin qu’elles soient correctement prises en compte.
+###  Pour mieux comprendre ce que je viens d'évoquer:
+
+![schema](/img/schema.png)
+
+
+Pour assurer la bonne **conformité** avec les exigences RGPD, il faut donc **resynchroniser** ces données en les réintégrant dans le processus de purge, afin qu’elles soient correctement prises en compte.
 
 ---
 
 ### Objectif
 
-* Récuperer et ingérer /A EXPLIQUER\ un Unload de la base DB2 qui correspont aux données n'ayant pas été purgés.
+* Récuperer un Unload de la base DB2 qui correspont aux données n'ayant pas été purgés.
 * Générer un fichier **delta** qui identifie les données absentes ou non traitées dans la base actuelle, pour une purge complète et fiable.
 
 ---
@@ -208,20 +217,22 @@ stages:
     <li>Un fichier Parquet est généré dans le répertoire <code>incoming</code>, prêt à être intégré dans la chaîne de purge RGPD</li>
   </ul>
 
-  <h3>Liens avec les contraintes RGPD</h3>
+  <h3>Suite du traitement</h3>
   <p>
-    Ce job assure une traçabilité complète des contrats à purger et garantit que les éventuelles
-    réutilisations d'identifiants n'interfèrent pas avec les exigences RGPD.
+    Le fichier data_guide_contrat_incoming sera utilisé par le traitement de purge existant.
   </p>
-  <ul>
-    <li>Les données personnelles sont supprimées dans tous les systèmes concernés</li>
-    <li>Les fichiers de purge sont conformes et justifiables en cas d’audit RGPD</li>
-  </ul>
+
 </div>
 </div>
 
 ---
 
-###  Schéma de purge
+## Compétences mobilisées
 
-![schema](/img/schema.png)
+* **Compétence 1** : développement d’un traitement automatisé structuré (YAML + SQL) pour extraire les données à purger.
+* **Compétence 3** : gestion de fichiers sur HDFS, manipulation d’environnements Big Data distribués.
+* **Compétence 4** : croisement et traitement de données issues de plusieurs sources hétérogènes (DB2, Datahub).
+* **Compétence 5** : cadrage du besoin RGPD avec les équipes projet, suivi des livraisons dans la chaîne existante.
+* **Compétence 6** : travail en coordination avec plusieurs équipes (intégrateurs, conformité, exploitation).
+
+---

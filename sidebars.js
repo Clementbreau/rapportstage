@@ -1,19 +1,44 @@
-// sidebars.js
 module.exports = {
-    tutorialSidebar: [
-        'introduction',
-        'entreprise',
-        'outils',
+  sidebar: [
+    {
+      type: 'doc',
+      id: 'introduction',
+      label: 'Accueil'
+    },
+    {
+      type: 'category',
+      label: 'Projets & expériences',
+      items: [
         {
-            type: 'category',
-            label: 'Sujets traités',
-            items: [
-                'sujet1-talend-dates',
-                'sujet2-resynchro-prodauto',
-                'sujet3-resynchro-tpo2mrh',
-            ],
+          type: 'category',
+          label: 'Stage chez Covéa',
+          items: [
+            'projets/stagecovea/entreprise',
+            'projets/stagecovea/mission1',
+            'projets/stagecovea/mission2'
+          ]
         },
-        'competences',
-        'conclusion',
-    ],
+        'projets/projetlogbase',
+        'projets/saecapteurs'
+      ]
+    },
+    {
+      type: 'category',
+      label: 'Compétences',
+      items: [
+        'competences/competence1',
+        'competences/competence2',
+        'competences/competence3',
+        'competences/competence4',
+        'competences/competence5',
+        'competences/competence6'
+      ]
+    },
+    {
+      type: 'doc',
+      id: 'bilan',
+      label: 'Bilan personnel'
+    }
+    
+  ]
 };
