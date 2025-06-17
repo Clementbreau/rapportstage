@@ -125,5 +125,3 @@ Ce projet a mobilisé plusieurs compétences du BUT Informatique :
 Le projet LogBase m’a permis d’expérimenter un cycle de développement complet avec un client externe. Il m’a appris à écouter un besoin métier, à proposer des solutions réalistes, et à construire un outil à la fois robuste et ergonomique. Ce projet a également été l’occasion de renforcer mes compétences en Python, en gestion d’équipe, et en communication technique.
 
 ```
-
----
