@@ -1,15 +1,14 @@
-// docusaurus.config.js
 module.exports = {
   noIndex: true,
   title: 'Bilan de Compétences',
   tagline: 'BUT Info 2A – Année universitaire',
-  url: 'https://bilanbutinfo.github.io',           // ⚠️ Mets à jour l'URL si tu changes de repo
-  baseUrl: '/bilanbutinfo/',                       // ⚠️ Nouveau nom de projet
+  url: 'https://Clementbreau.github.io',           // URL GitHub Pages
+  baseUrl: '/rapportstage/',                        // Nom du repo
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/lr.ico',
-  organizationName: 'Darcodemonpote',              // Ou ton org GitHub
-  projectName: 'bilanbutinfo',                     // ⚠️ Doit correspondre au repo GitHub Pages
+  organizationName: 'Clementbreau',                 // Ton org ou nom GitHub
+  projectName: 'rapportstage',                       // Nom du repo
 
   presets: [
     [
@@ -18,7 +17,7 @@ module.exports = {
         docs: {
           routeBasePath: '/', // Accueil à la racine
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/Darcodemonpote/bilanbutinfo/edit/main/',
+          editUrl: 'https://github.com/Clementbreau/rapportstage/edit/main/',  // Lien vers édition
         },
         blog: false,
         theme: {
