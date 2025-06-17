@@ -28,14 +28,6 @@ Le projet a démarré par une série d’échanges avec le client pour cerner pr
 
 Le projet s’est structuré autour de 4 itérations principales, ponctuées de démonstrations régulières au client, permettant de valider les livrables et d’ajuster en fonction des retours.
 
-### Fonctionnement de l’équipe
-
-Notre équipe était composée de plusieurs profils complémentaires. La répartition des tâches a été organisée de manière souple mais structurée :
-
-- Un membre travaillait principalement sur l’interface graphique,
-- Un autre sur la partie parsing et traitement des logs,
-- Le reste de l’équipe intervenait sur la logique d’affichage, les exports et les fonctionnalités avancées.
-
 La collaboration se faisait via des réunions régulières, un partage du code via Git, et une synchronisation sur les objectifs de chaque itération.
 
 ## Architecture technique
@@ -52,7 +44,6 @@ Le projet est composé de plusieurs modules distincts :
 - **Module parser** : lecture et interprétation des fichiers de logs pour extraire les éléments clés (requêtes SQL, statuts, timestamps…).
 - **Module UI** : création de composants graphiques avec Kivy (tableaux, boutons, filtres).
 - **Module affichage** : gestion des vues, navigation, affichage des statistiques sous forme de graphique.
-- **Module export** : sauvegarde des résultats au format CSV pour exploitation ultérieure.
 
 ### Fonctionnalités développées
 
@@ -68,16 +59,21 @@ Le projet est composé de plusieurs modules distincts :
 Voici un exemple simplifié du parsing réalisé sur les fichiers de logs :
 
 ```python
-def parse_line(line):
-    if "ERROR" in line:
-        timestamp = extract_timestamp(line)
-        query = extract_sql_query(line)
-        return {
-            "timestamp": timestamp,
-            "query": query,
-            "type": "Erreur"
-        }
-    return None
+def parse(filepath):
+  patternFilePath = re.compile(r'[^\\|/]+(?=\.[^.]+$)')
+  match = patternFilePath.search(filepath)
+  if match:
+    file_name = match.group(0)
+    if '/' in filepath:
+      cache_file_path = f'__logcache__/{file_name}.pkl'
+    elif '\\' in filepath:
+      cache_file_path = f'__logcache__\\{file_name}.pkl'
+    if not os.path.exists(cache_file_path):
+        if not os.path.exists('__logcache__'):
+          os.makedirs('__logcache__')
+        # Write data in the fiel using pickle
+        with open(cache_file_path, 'wb') as file:
+            pickle.dump(GetContentLog(filepath), file)
 ````
 
 L’extraction des requêtes nécessitait de prendre en compte des cas particuliers comme les retours à la ligne, les encodages, et la présence de blocs SQL imbriqués.
