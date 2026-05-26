@@ -18,8 +18,16 @@ module.exports = {
             'projets/stagecovea/mission2'
           ]
         },
-        'projets/projetlogbase',
-        'projets/saecapteurs'
+        {
+          type: 'category',
+          label: 'Scolaire',
+          items: [
+            'projets/projetlogbase',
+            'projets/nlp',
+          ]
+        },
+        'projets/saecapteurs',
+        'projets/saemuseeia'
       ]
     },
     {

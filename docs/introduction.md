@@ -1,7 +1,7 @@
 # Accueil — Bilan de compétences (BUT Informatique)
 
 Bienvenue sur mon espace documentaire personnel, structuré sous forme de wiki.
-Ce site présente mon **bilan de compétences** de fin de troisième année de BUT Informatique. Il a pour objectif de faire le point sur l’acquisition et le renforcement des six compétences du programme, à travers des projets concrets réalisés en formation et en alternance.
+Ce site présente mon **bilan de compétences** de fin de troisième année de BUT Informatique. Il a pour objectif de faire le point sur l’acquisition et le renforcement des six compétences du programme, à travers des projets concrets réalisés en formation et en alternance des 2 dernières années.
 
 ---
 
@@ -13,7 +13,6 @@ Ce travail vise à :
 * Identifier les compétences mobilisées dans différents contextes (alternance, SAE, projets tutorés),
 * Illustrer ces compétences par des éléments concrets : extraits de code, schémas, captures d’écran, tickets, documents techniques,
 * Analyser les méthodes utilisées, les difficultés rencontrées, et les axes de progression envisagés,
-* Mettre en évidence l’évolution de mes compétences entre la deuxième et la troisième année,
 * Valoriser les expériences techniques et professionnelles en lien avec mon projet professionnel.
 
 ---
@@ -28,7 +27,7 @@ Plusieurs projets ont été menés au cours de l’année :
 
 * Une **SAÉ réalisée en équipe en mode agile**, dont l’objectif était de développer un assistant IA capable de générer automatiquement des anecdotes pour des musées à partir d’informations fournies sur les œuvres et leur contexte,
 * Un **projet NLP humoristique** centré sur la classification et la génération de phrases humoristiques à l’aide de modèles de type Transformer,
-* Un **projet multi-agent**, réalisé en équipe, permettant d’assister le responsable d’un site vitrine en produisant des rapports détaillés sur les transactions et les parcours utilisateurs.
+* Ou encore un **projet multi-agent**, réalisé en équipe, permettant d’assister le responsable d’un site vitrine en produisant des rapports détaillés sur les transactions et les parcours utilisateurs.
 
 Ces projets ont permis de travailler sur des problématiques liées à l’intelligence artificielle, au traitement de données, au développement logiciel et au travail en équipe.
 
@@ -51,7 +50,6 @@ Le site est conçu pour permettre une navigation à **double entrée** :
 * Par **compétence** : chaque compétence est documentée à travers des situations concrètes,
 * Par **projet ou expérience** : chaque projet est décrit avec les compétences qu’il a permis de mobiliser ou renforcer.
 
-Une attention particulière est également portée à l’évolution de mes pratiques et de mon autonomie entre la deuxième et la troisième année du BUT.
 
 ---
 
