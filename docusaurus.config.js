@@ -5,11 +5,15 @@ module.exports = {
   url: 'https://Clementbreau.github.io',           // URL GitHub Pages
   baseUrl: '/rapportstage/',                        // Nom du repo
   onBrokenLinks: 'throw',
-  onBrokenMarkdownLinks: 'warn',
   favicon: 'img/lr.ico',
   organizationName: 'Clementbreau',                 // Ton org ou nom GitHub
   projectName: 'rapportstage',                       // Nom du repo
-
+  trailingSlash: false,
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: 'warn'
+    },
+  },
   presets: [
     [
       '@docusaurus/preset-classic',
