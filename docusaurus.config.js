@@ -2,12 +2,12 @@ module.exports = {
   noIndex: true,
   title: 'Bilan de Compétences',
   tagline: 'BUT Info 2A – Année universitaire',
-  url: 'https://Clementbreau.github.io',           // URL GitHub Pages
-  baseUrl: '/rapportstage/',                        // Nom du repo
+  url: 'https://clementbreau.github.io',           // 1. ✅ Modifié "Clementbreau" par "clementbreau" (tout en minuscules)
+  baseUrl: '/rapportstage/',                        
   onBrokenLinks: 'throw',
   favicon: 'img/lr.ico',
-  organizationName: 'Clementbreau',                 // Ton org ou nom GitHub
-  projectName: 'rapportstage',                       // Nom du repo
+  organizationName: 'Clementbreau',                 
+  projectName: 'rapportstage',                       
   trailingSlash: false,
   markdown: {
     hooks: {
@@ -19,9 +19,9 @@ module.exports = {
       '@docusaurus/preset-classic',
       {
         docs: {
-          routeBasePath: '/', // Accueil à la racine
+          routeBasePath: '/', 
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/Clementbreau/rapportstage/edit/main/',  // Lien vers édition
+          editUrl: 'https://github.com/Clementbreau/rapportstage/edit/main/',  
         },
         blog: false,
         theme: {
@@ -53,8 +53,9 @@ module.exports = {
         {
           title: 'Sommaire',
           items: [
-            { label: 'Accueil', to: '/rapportstage/' },
-            { label: 'Présentation', to: '/rapportstage/presentation' },
+            // 2. ✅ Liens corrigés (Docusaurus s'occupe tout seul du préfixe /rapportstage/)
+            { label: 'Accueil', to: '/' }, 
+            { label: 'Présentation', to: '/presentation' },
           ],
         },
       ],
