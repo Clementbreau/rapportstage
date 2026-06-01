@@ -24,6 +24,7 @@ module.exports = {
           items: [
             'projets/projetlogbase',
             'projets/nlp',
+            'projets/tutore'
           ]
         },
         'projets/saecapteurs',
