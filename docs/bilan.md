@@ -1,6 +1,6 @@
 # Bilan personnel et professionnel — 3 ans de BUT Informatique
 
-## Bilan du parcours (3 ans)
+## Bilan du parcours
 
 Ces trois années de BUT Informatique, marquées par mon alternance au sein du groupe Covéa, ont été le moteur d'une profonde transformation technique et humaine. Passer du statut d'étudiant à celui d'alternant autonome m'a permis de consolider un profil solide en ingénierie des données et en développement transverse.
 
