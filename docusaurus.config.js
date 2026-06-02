@@ -2,7 +2,7 @@ module.exports = {
   noIndex: true,
   title: 'Bilan de Compétences',
   tagline: 'BUT Info 2A – Année universitaire',
-  url: 'https://clementbreau.github.io',           // 1. ✅ Modifié "Clementbreau" par "clementbreau" (tout en minuscules)
+  url: 'https://clementbreau.github.io',         
   baseUrl: '/rapportstage/',                        
   onBrokenLinks: 'throw',
   favicon: 'img/lr.ico',

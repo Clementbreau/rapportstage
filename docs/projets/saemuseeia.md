@@ -1,4 +1,4 @@
-# Projet SAE — Assistant IA pour la génération d’anecdotes muséales
+# Projet SAE but3— Assistant IA pour la génération d’anecdotes muséales
 
 ## Contexte et objectifs
 
@@ -22,7 +22,7 @@ Concrètement, l’outil doit :
 * Pouvoir générer des variants de prompts (et les sauvegarder dans une bibliotheque),
 
 ---
-
+![sae3](/img/sae3.png)
 ## Contraintes du projet
 
 Le projet devait respecter plusieurs contraintes importantes :

@@ -92,12 +92,8 @@ La solution a ensuite été appliquée sur d’autres jobs par dautres personnes
                ↓
 [ Livraison ]
 ```
-
 Ce flux a été répété pour chaque traitement identifié comme sensible aux variations de fuseau horaire.
 Les anomalies corrigés ont été notés sur le fichier excel et en commentaires sur les tickets jira.
-
-
-```
 
 ## Compétences mobilisées
 

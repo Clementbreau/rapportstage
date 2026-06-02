@@ -2,7 +2,7 @@
 
 ## Le groupe Covéa
 
-Covéa est un groupe mutualiste français rassemblant plusieurs grandes marques d'assurance : MAAF, MMA et GMF. Ensemble, elles forment un acteur majeur de l'assurance et de la réassurance en Europe, avec plus de 11 millions de sociétaires et clients. Le groupe emploie plus de 21 000 collaborateurs et s'engage dans une transformation numérique ambitieuse pour répondre aux nouveaux enjeux technologiques, économiques et environnementaux.
+Covéa est un groupe mutualiste français rassemblant plusieurs grandes marques d'assurance : MAAF, MMA et GMF. Ensemble, elles forment un acteur majeur de l'assurance et de la réassurance en Europe, avec plus de 11 millions de sociétaires et clients. Le groupe emploie plus de 24 000 collaborateurs et s'engage dans une transformation numérique ambitieuse pour répondre aux nouveaux enjeux technologiques, économiques et environnementaux.
 
 ![logo-covea](/img/logoc.png)
 

@@ -1,4 +1,4 @@
-# Projet — Humoristique NLP (classification et génération de contenu humoristique)
+# Projet — Humoristique NLP (BUT 3)
 
 ## Contexte et objectifs
 

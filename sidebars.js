@@ -20,6 +20,14 @@ module.exports = {
         },
         {
           type: 'category',
+          label: 'Alternance chez Covéa',
+          items: [
+            'projets/alternancecovea/metdatdh',
+            'projets/alternancecovea/mission2suite'
+          ]
+        },
+        {
+          type: 'category',
           label: 'Scolaire',
           items: [
             'projets/projetlogbase',

@@ -16,7 +16,7 @@ L’optimisation repose sur une analyse des comportements existants et sur des a
 
 ## Évolution de la compétence
 
-### Année précédente
+### Première Année
 
 Lors de ma première année de BUT, l’optimisation était principalement abordée à travers :
 

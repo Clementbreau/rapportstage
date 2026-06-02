@@ -14,7 +14,7 @@ Cette compétence implique :
 
 ## Évolution de la compétence
 
-### Année précédente
+### Première Année
 
 Lors de ma première année de BUT, cette compétence était principalement mobilisée dans un cadre académique :
 
@@ -100,12 +100,6 @@ Ce projet a renforcé la capacité à structurer du code autour d’un pipeline 
 * meilleure compréhension des architectures modulaires et découplées,
 * capacité à structurer des projets complexes en composants indépendants,
 * prise en compte de contraintes réelles (données, infrastructure, intégration).
-
----
-
-## Traces
-
-*(à compléter si tu veux ajouter des captures spécifiques de code ou d’interface — ici volontairement minimal pour rester fidèle à tes consignes)*
 
 ---
 

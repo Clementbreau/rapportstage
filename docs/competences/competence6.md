@@ -15,18 +15,18 @@ Cela inclut notamment :
 
 ## Évolution de la compétence
 
-### Année précédente
+### Première Année
 
 La collaboration se faisait principalement dans un cadre encadré :
 
 * travail en groupe avec répartition des tâches,
-* utilisation basique de Git et de la documentation,
+* découverte de Git et de la documentation,
 * échanges principalement internes aux projets,
 * coordination limitée à des besoins académiques.
 
 ---
 
-### Cette année
+### En BUT2 et BUT3
 
 L’expérience s’est élargie vers des environnements plus structurés :
 
@@ -47,7 +47,7 @@ Dans mes missions au sein de Covéa :
 * participation aux daily meetings et comités de projet,
 * utilisation de Jira pour le suivi des tâches,
 * échanges réguliers avec les membres de l’équipe,
-* rédaction et consultation de documentation sur Confluence.
+* rédaction et consultation de documentation sur Confluence, et utilisation de git.
 
 ---
 

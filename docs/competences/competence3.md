@@ -16,7 +16,7 @@ Cette compétence implique notamment :
 
 ## Évolution de la compétence
 
-### Année précédente
+### Première Année
 
 Lors de la première année, cette compétence était principalement abordée de manière théorique ou dans des contextes simplifiés :
 
@@ -78,14 +78,6 @@ Le projet multi-agent a également mobilisé cette compétence à travers :
 
 ---
 
-### Projet NLP
-
-Dans le projet NLP :
-
-* exécution de plusieurs scripts spécialisés dans un même pipeline,
-* séparation des étapes (préparation, entraînement, test, génération),
-* manipulation de données et de modèles dans un flux structuré.
-
 ---
 
 ## Apports concrets
@@ -106,4 +98,4 @@ J’ai évolué d’une compréhension principalement académique des systèmes 
 
 L’alternance chez Covéa a été déterminante dans cette évolution, notamment grâce à la manipulation de traitements distribués et à l’analyse de logs dans un contexte réel.
 
-Les projets scolaires (batch, multi-agent, NLP) ont complété cette expérience en me permettant de reproduire des architectures simplifiées de systèmes communicants et de mieux comprendre leur fonctionnement global.
+Les projets scolaires (batch, multi-agent) ont complété cette expérience en me permettant de reproduire des architectures simplifiées de systèmes communicants et de mieux comprendre leur fonctionnement global.

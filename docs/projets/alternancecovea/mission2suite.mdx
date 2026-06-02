@@ -1,0 +1,300 @@
+---
+hide_table_of_contents: true
+---
+
+# Suite de la Resynchronisation RGPD des contrats entre DB2 et le Datahub: TPO2MRH (nom du projet)
+
+
+import React from 'react';
+import CodeBlock from '@theme/CodeBlock';
+import styles from './resynchro2.module.css';
+
+### Contexte du projet prodauto de l'année dernière
+
+Dans le cadre de la mise en place de la norme RGPD, il y a eu la mise en place d'une purge sur de nombreuses bases de données.
+Celles ci contiennent des contrats/devis ajoutés par les utilisateurs (DB2), or la base de donnée du datahub n'a pas subis ces memes mises à jours, et donc ces données n'avaient pas été purgés de ce coté.
+Pour assurer la bonne **conformité** avec les exigences RGPD, il fallait donc **resynchroniser** ces données en les réintégrant dans le processus de purge, afin qu’elles soient correctement prises en compte.
+Lors de mon stage j'avais travaillé sur les composant lié aux contrats et devis automobile (**prodauto**) bien que je n'avait réalisé alors que les fondation du projet dont la finalisation et la mise en production à été faite par mon tuteur. 
+
+
+
+###  Pour mieux comprendre ce que je viens d'évoquer:
+
+![schema](/img/schema.png)
+---
+
+### contexte similaire et même Objectif
+Cette fois-ci il s'agit de faire cette *resynchro* sur des données relatives a des contrats et devis relatifs à l'habitation.
+On a 4 tables à gérer plutôt que 3 mais l'idée est toujours de :
+* Récuperer des unloads (données courrantes) de la base DB2 qui correspont aux données n'ayant pas été purgés.
+* Générer un fichier **delta** qui identifie les données absentes ou non traitées dans la base actuelle, pour une purge complète et fiable.
+---
+
+### Contraintes techniques
+* 4 tables (table des contrats, devis, adresse risque contrat et adresse risque devis)
+* Réutilisation d'identifiants pour les 2 tables de tpo2mrh liées au devis /
+  Tant que la resynchronisation avec le Datahub n’a pas eu lieu, le Datahub conserve encore l’ancien contrat non purgé, ce qui fait qu'on peut avoir même identifiant pour plusieurs contrats différents (ancien et nouveau).
+* La manipulation repose sur des requêtes SQL avec des jointures et des fonctions analytiques.
+* Le traitement de purge avait des problemes qui ont génés la réalisation du projet.
+
+### Réalisation
+
+Sur ce projet, j'ai eu l'opportunité d'intervenir **de bout en bout**, en prenant en charge l'intégralité du cycle de vie des développements, de la phase de conception initiale jusqu'à la validation finale des données en production.
+
+#### 1. Conception et Modélisation
+
+En m'inspirant de mon travail sur Prodauto, j'ai pu conceptualiser le flux de données au travers des différents traitements pour ré
+Pour aborder sereinement les 4 tables du périmètre Habitation, j'ai d'abord réalisé une cartographie des flux et de la logique de jointure SQL. Ce travail de conception a permis de structurer proprement l'enchaînement des étapes avant de coder.
+
+![conception](/img/conception.png)
+
+#### 2. Développement et Validation
+
+Mon travail s'est ensuite articulé autour des phases suivantes :
+
+* **Développement technique** : Écriture des fichiers de configuration YAML et des requêtes SQL analytiques pour le socle générique. (exemple ci-apres)
+* **Tests** : Réalisation de nombreux tests volumétriques et unitaires dans un environnement dédié avec des données de prod.
+Il s'agit d'une étape a laquelle j'ai consacré beaucoup de temps et dans laquelle j'ai corrigé de nombreuses failles autrement impossible a voir avec seulements quelques cas. 
+* **Suivi de déploiement** : Coordination avec les équipes d'intégration pour exécuter et valider les traitements écrits (voir plus bas).
+
+Cette autonomie complète m'a permis de mesurer l'impact de mes choix de conception lors de la mise en production.
+
+---
+
+---
+
+##  Job `devis_tmrdar10` *(dont les '$' ont étés supprimés pour raisons techniques)*
+
+<div className={styles.sideBySide}>
+  <div className={styles.left}>
+    <CodeBlock language="yaml">
+{`
+zone: "ing"
+origine: "maaf"
+cal: "tpo2mrh"
+name: "devis_tmrdar10"
+vars:
+  table-name-source: "tmrdar10"
+  directory: "/{env}/ing/maaf/tpo2mrh/rgpd/data_guide_adresse_devis"
+  table-cible: "data_guide_adresse_devis_incoming"
+  flux: "resynchro"
+  date_arch: "31/12/2025"
+  delay_reuse: "14"
+ 
+stages:
+  - stage: "suppression data_guide"
+    type: "CLEAN_DIR_HDFS"
+    condition: "modePattern==\"prepare\""
+    params:
+      directories:
+        - "{directory}"
+        - "{directory}/staging"
+        - "{directory}/stagingArchives"
+        - "{directory}/incoming"
+        - "{directory}/reconcile"
+        - "{directory}/base"
+        - "{directory}/histo"
+ 
+  - stage: "multi_data_prep"
+    type: "MULTI_DATA_PREP"
+    condition: "modePattern==\"prepare\""
+    params:
+      sources:
+        - name: "resynchro_tmrdar10"
+          type: parquet
+          table-name: "{flux}_{table-name-source}"
+          schema-file: "schemas/metcdc/tmrdar10.yaml"
+          directory: "/{env}/ing/maaf/tpo2mrh/{flux}/tmrdar10"
+        - name: "metcdc_tmrdar10_base"
+          type: parquet
+          table-name: "metcdc_{table-name-source}_base"
+          schema-file: "schemas/metcdc/tmrdar10.yaml"
+          directory: "/{env}/ing/maaf/tpo2mrh/metcdc/tmrdar10/base"
+        - name: "metcdc_tmrdar10_histo"
+          type: parquet
+          table-name: "metcdc_{table-name-source}_histo"
+          schema-file: "schemas/metcdc/tmrdar10.yaml"
+          directory: "/{env}/ing/maaf/tpo2mrh/metcdc/tmrdar10/histo"
+      transformations:
+        - name: "data_guide_adresse_devis_incoming"
+          type: parquet
+          base: "/{env}/ing/maaf/tpo2mrh/rgpd/data_guide_adresse_devis/incoming"
+          directory: "/{env}/ing/maaf/tpo2mrh/rgpd/data_guide_adresse_devis/incoming"
+          schema-file: "schemas/RGPD/data_guide_adresse_devis_rgpd_incoming.yaml"
+          table-name: "{table-cible}"
+          query:  "
+                  SELECT DISTINCT
+                      'devis'                                                                             AS CTYMET,
+                       t3.npsn                                                                            AS NPSN,
+                       t3.nent09                                                                          AS NENT09,
+                       t3.cprmbr                                                                          AS CPRMBR,
+                       t3.cprmcp                                                                          AS CPRMCP,
+                       t3.cmrhor                                                                          AS CMRHOR,
+                       t3.cmrhde                                                                          AS CMRHDE,
+                       CAST(t3.imrhsa as STRING)                                                          AS NMRHSA,
+                       date_format(add_months(CONCAT(SUBSTR(t3.base_timestamp, 1, 4) ,'-', SUBSTR(t3.base_timestamp, 5, 2) ,'-', SUBSTR(t3.base_timestamp, 7, 2)),-14), 'dd/MM/yyyy') AS DPASARCH,
+                       '002'                                                                              AS statut_commercial,
+                       date_format(CURRENT_TIMESTAMP,'yyyy-MM-dd HH:mm:ss')                               AS DATE_INGESTION
+                  FROM
+                    (
+                        SELECT
+                            t2.npsn,
+                            t2.nent09,
+                            t2.cprmbr,
+                            t2.cprmcp,
+                            t2.cmrhor,
+                            t2.cmrhde,
+                            t2.imrhsa,
+                            t2.base_timestamp,
+                            dense_rank() OVER (PARTITION BY t2.npsn, t2.cmrhor, t2.imrhsa ORDER BY CAST(FROM_UNIXTIME(UNIX_TIMESTAMP(SUBSTR(t2.dtl__capxtimestamp,1,8), 'yyyyMMdd')) AS DATE) DESC) AS drk
+                        FROM
+                          (
+                            SELECT
+                                j.npsn,
+                                j.nent09,
+                                j.cprmbr,
+                                j.cprmcp,
+                                j.cmrhor,
+                                j.cmrhde,
+                                j.imrhsa,
+                                j.dtl__capxtimestamp,
+                                MAX(j.dtl__capxtimestamp) OVER (PARTITION BY j.npsn, j.cmrhor, j.imrhsa) AS base_timestamp,
+                                MIN(CAST(FROM_UNIXTIME(UNIX_TIMESTAMP(SUBSTR(j.dtl__capxtimestamp,1,8), 'yyyyMMdd')) AS DATE)) OVER (PARTITION BY j.npsn, j.cmrhor, j.imrhsa) AS min_dmrhcr,
+                                MAX(CAST(FROM_UNIXTIME(UNIX_TIMESTAMP(SUBSTR(j.dtl__capxtimestamp,1,8), 'yyyyMMdd')) AS DATE)) OVER (PARTITION BY j.npsn, j.cmrhor, j.imrhsa) AS max_dmrhcr
+                            FROM
+                                metcdc_tmrdar10_histo j
+                                JOIN resynchro_tmrdar10 n ON j.npsn = n.npsn
+                                                         AND j.cmrhor = n.cmrhor
+                                                         AND j.imrhsa = n.imrhsa
+                          ) AS t2
+                        WHERE t2.min_dmrhcr < add_months(t2.max_dmrhcr, -{delay_reuse})
+                    ) t3
+                  WHERE t3.drk > 1
+                  UNION ALL
+                  SELECT 'devis'                         AS CTYMET,
+                          b.npsn                         AS NPSN,
+                          b.nent09                       AS NENT09,
+                          b.cprmbr                       AS CPRMBR,
+                          b.cprmcp                       AS CPRMCP,
+                          b.cmrhor                       AS CMRHOR,
+                          b.cmrhde                       AS CMRHDE,
+                          CAST(b.imrhsa as STRING)       AS NMRHSA,
+                          Cast('{date_arch}' AS STRING) AS dpasarch,
+                          '002'                          AS statut_commercial,
+                          date_format(CURRENT_TIMESTAMP,'yyyy-MM-dd HH:mm:ss') AS DATE_INGESTION
+                          FROM metcdc_tmrdar10_base b
+                                  WHERE NOT EXISTS (
+                                      SELECT 1
+                                      FROM   resynchro_tmrdar10 i
+                                      WHERE  b.NPSN = i.NPSN
+                                      AND  b.CMRHOR = i.CMRHOR
+                              AND  b.IMRHSA = i.IMRHSA
+                                      )
+                  "
+`}
+    </CodeBlock>
+  </div>
+  <div className={styles.right}>
+  <h2>Explication du job <code>devis_tmrdar10</code></h2>
+
+  <p>
+    Le job <code>devis_tmrdar10</code> a été mis en place pour assurer la
+    <strong> resynchronisation des données d'adresse devis </strong>
+    liées au composant tpo2mrh dans le cadre de la mise en conformité RGPD.
+    Il vise à réintégrer dans le processus de purge des devis qui avaient été supprimés
+    de la base <strong>DB2</strong>, mais qui sont toujours présents dans le <strong>Datahub</strong>.
+  </p>
+
+  <h3>Fonctionnement général</h3>
+  <p>
+    Ce job se base sur une <strong>analyse croisée</strong> entre l’unload issu de DB2 (<code>resynchro_tmrdar10</code>)
+    et les historiques/base existants du Datahub (<code>metcdc_tmrdar10_histo</code> et <code>metcdc_tmrdar10_base</code>).
+    Il est structuré en plusieurs étapes.
+  </p>
+
+  <h3>Stage 1 – Nettoyage des répertoires HDFS</h3>
+  <ul>
+    <li>Répertoires <code>staging</code>, <code>incoming</code>, <code>reconcile</code>, <code>base</code>, <code>histo</code>, etc...</li>
+  </ul>
+
+  <h3>Stage 2 – Préparation des données (stage <code>multi_data_prep</code>)</h3>
+  <p>Cette étape charge les différentes sources nécessaires à la resynchronisation :</p>
+
+  <h4>Sources utilisées</h4>
+  <ul>
+    <li><code>resynchro_tmrdar10</code> : dump de DB2 contenant les devis censés avoir été purgés</li>
+    <li><code>metcdc_tmrdar10_base</code> : état actuel des devis dans le Datahub (base)</li>
+    <li><code>metcdc_tmrdar10_histo</code> : historique des modifications sur ces devis dans le Datahub</li>
+  </ul>
+
+  <p><strong>Objectif :</strong> Comparer ces sources pour identifier deux cas distincts.</p>
+
+  <h3>Transformation logique – Génération du fichier <code>data_guide_adresse_devis_incoming</code></h3>
+  <p>
+    La logique de transformation SQL permet de générer le fichier <code>data_guide_adresse_devis_incoming</code>,
+    qui contient les devis à intégrer dans le processus de purge.
+  </p>
+
+  <h4>Deux types de cas sont extraits :</h4>
+  <ol>
+    <li>
+      <strong>Cas 1 – Devis réutilisés</strong> (même identifiant, devis différent)<br />
+      Identifiés par une différence entre les dates de référence (<code>dmrhcr</code>) min/max
+      et un décalage supérieur au délai (<code>delay_reuse</code>).<br />
+      On sélectionne les enregistrements qui correspondent a des cas de réutilisation (<code>drk > 1</code>) pour chaque identifiant, ceux-ci seront purgés.
+    </li>
+    <li>
+      <strong>Cas 2 – Devis inexistants dans DB2</strong> (non purgés)<br />
+      Devis encore présents dans le Datahub, mais absents du dump.<br />
+      Générés via un <code>NOT EXISTS</code> entre la base <code>metcdc</code> et le dump <code>resynchro</code>.
+    </li>
+  </ol>
+
+  <h3>Résultat attendu</h3>
+  <ul>
+    <li>Les devis absents ou mal purgés sont correctement identifiés</li>
+    <li>Un fichier Parquet est généré dans le répertoire <code>incoming</code>, prêt à être intégré dans la chaîne de purge RGPD</li>
+  </ul>
+
+  <h3>Suite du traitement</h3>
+  <p>
+    Le fichier data_guide_adresse_devis_incoming sera utilisé par le traitement de purge existant.
+  </p>
+
+</div>
+</div>
+
+---
+
+## Mise en production et livrables
+
+Contrairement à la mission précédente sur le périmètre automobile, j'ai pu cette fois-ci mener le sujet **jusqu'à son déploiement complet en production**. Cette étape cruciale m'a permis de prendre en charge l'intégralité du cycle de vie du projet à travers la réalisation de livrables d'exploitation rigoureux.
+
+### Livrables d'exploitation réalisés
+
+* **DHE (Dossier d'Homologation et d'Exploitation)** : Rédaction des différentes chaines (liste de *stages*) qui ont pour but de réaliser un traitements lancés via l'API.
+
+(je l'avais fait l'année derniere aussi bien que je ne l'avais pas mentionné)
+
+![dhe](/img/dhe.png)
+
+* **Plan de TAP (Tests Après Production)** : Plan de suivi de mise en production, incluant l'ordonnancement des chaînes à exécuter, les points de contrôle et la validation des étapes (marquage "OK" après vérification des résultats). *!
+
+![tap](/img/tap.png)
+
+### Déploiement
+
+Le plan de TAP a été rigoureusement suivi et la mise en production s'est **déroulée avec succès**. 
+
+> **Note :** Ce déploiement a été facilité par l'assistance d'un membre de mon équipe, qui m'a aidé au développement et lors de mes tests.
+
+
+## Compétences mobilisées
+
+* **Compétence 1** : développement d’un traitement automatisé structuré (YAML + SQL) pour extraire les données à purger.
+* **Compétence 3** : gestion de fichiers sur HDFS, manipulation d’environnements Big Data distribués.
+* **Compétence 4** : croisement et traitement de données issues de plusieurs sources hétérogènes (DB2, Datahub).
+* **Compétence 5** : cadrage du besoin RGPD avec les équipes projet, suivi des livraisons dans la chaîne existante.
+* **Compétence 6** : travail en coordination avec plusieurs personnes et équipes (intégrateurs, aides, exploitation).
+
+---

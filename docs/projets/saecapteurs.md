@@ -1,5 +1,5 @@
 
-# Projet SAE — Application de suivi des données environnementales
+# Projet SAE but2— Application de suivi des données environnementales
 
 ## Contexte et objectifs
 

@@ -15,18 +15,17 @@ Cela implique notamment :
 
 ## Évolution de la compétence
 
-### Année précédente
+### Première Année
 
 L’organisation projet était surtout encadrée :
 
-* méthodologies agiles appliquées dans un cadre pédagogique,
-* backlog et user stories déjà partiellement définis,
+* pas de méthodologie agile,
 * interaction client simulée ou limitée,
 * suivi de projet principalement guidé.
 
 ---
 
-### Cette année
+### En BUT2 et BUT3
 
 L’évolution s’est faite vers des environnements plus proches du réel :
 

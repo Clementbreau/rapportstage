@@ -1,4 +1,4 @@
-# Accueil — Bilan de compétences (BUT Informatique)
+# Introduction — Bilan de compétences (BUT Informatique)
 
 Bienvenue sur mon espace documentaire personnel, structuré sous forme de wiki.
 Ce site présente mon **bilan de compétences** de fin de troisième année de BUT Informatique. Il a pour objectif de faire le point sur l’acquisition et le renforcement des six compétences du programme, à travers des projets concrets réalisés en formation et en alternance des 2 dernières années.
@@ -23,7 +23,7 @@ Cette troisième année a été marquée par plusieurs expériences techniques e
 
 ### En formation
 
-Plusieurs projets ont été menés au cours de l’année :
+Plusieurs projets ont été menés au cours de l’année notamment:
 
 * Une **SAÉ réalisée en équipe en mode agile**, dont l’objectif était de développer un assistant IA capable de générer automatiquement des anecdotes pour des musées à partir d’informations fournies sur les œuvres et leur contexte,
 * Un **projet NLP humoristique** centré sur la classification et la génération de phrases humoristiques à l’aide de modèles de type Transformer,
@@ -50,6 +50,8 @@ Le site est conçu pour permettre une navigation à **double entrée** :
 * Par **compétence** : chaque compétence est documentée à travers des situations concrètes,
 * Par **projet ou expérience** : chaque projet est décrit avec les compétences qu’il a permis de mobiliser ou renforcer.
 
+#### Bien que le contenu des compétences soient explicités dans leur pages, leur apparition dans les projets se fera sous la forme "compétence 1/2/3/4/5/6 que voici dans l'ordre de gauche à droite:"
+![tableaudecompetences](/img/tabcomp.png)
 
 ---
 

@@ -1,5 +1,5 @@
 
-# Projet tutoré — LogBase : outil d’analyse de logs SQL
+# Projet tutoré — LogBase : outil d’analyse de logs SQL (BUT 2)
 
 ## Contexte et objectifs
 

@@ -16,7 +16,7 @@ Cela inclut :
 
 ## Évolution de la compétence
 
-### Année précédente
+### Première Année
 
 L’approche était surtout centrée sur :
 
@@ -27,14 +27,14 @@ L’approche était surtout centrée sur :
 
 ---
 
-### Cette année
+### En BUT2 et BUT3
 
 L’évolution s’est faite vers :
 
 * des données plus volumineuses et hétérogènes,
 * des pipelines de traitement plus complets,
-* des problématiques de nettoyage, structuration et analyse,
-* des jeux de données utilisés dans des contextes IA et industriels,
+* des problématiques de purge, structuration et analyse,
+* des jeux de données utilisés dans des contextes d'IA et d'industrialisation,
 * des interactions entre plusieurs sources de données.
 
 ---
@@ -79,7 +79,7 @@ Ce projet a mobilisé la donnée comme élément central du système :
 Projet particulièrement important pour cette compétence :
 
 * constitution de datasets (blagues + Wikipedia + dialogues),
-* fusion et nettoyage de plus de 460k exemples,
+* fusion et nettoyage (plus de 460k exemples),
 * équilibrage des classes (humour / non-humour),
 * analyse statistique (longueur des phrases, distribution),
 * visualisation (wordclouds, fréquences de mots),
@@ -99,7 +99,7 @@ Dans la partie génération :
 
 ---
 
-### SAE capteurs
+### la SAE capteurs en BUT2
 
 * exploitation de données environnementales (température, CO₂, humidité),
 * structuration et affichage de mesures issues de capteurs,
@@ -107,7 +107,7 @@ Dans la partie génération :
 
 ---
 
-### LogBase
+### LogBase en BUT2
 
 * parsing de logs SQL,
 * transformation de données brutes en données exploitables,

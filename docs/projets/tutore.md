@@ -1,4 +1,4 @@
-# Projet tutoré — Recréation d’un orchestrateur de batch inspiré du socle générique Covéa
+# Projet tutoré — socle générique Covéa (BUT 3)
 
 ## Contexte et objectifs
 

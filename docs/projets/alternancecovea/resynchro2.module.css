@@ -1,0 +1,20 @@
+.sideBySide {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1rem;
+}
+
+.left {
+    flex: 1;
+    min-width: 300px;
+}
+
+.right {
+    flex: 1;
+    min-width: 300px;
+    background-color: var(--ifm-background-surface-color);
+    border-left: 4px solid var(--ifm-toc-border-color);
+    padding: 1rem;
+    border-radius: 6px;
+}
