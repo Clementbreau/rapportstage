@@ -14,7 +14,7 @@ Cette approche artisanale rendait les analyses d'impact **longues, incertaines e
 
 ## Objectif du projet
 
-L'objectif était de créer un système automatisé capable d'extraire, centraliser et structurer l'ensemble des métadonnées techniques du SI. L'outil doit permettre aux développeurs de requêter instantanément le "data lineage" (la lignée de la donnée) pour savoir exactement quel job Talend ou quel module du **Socle Générique** (notre technologie interne en Java Spring Boot) manipule quelle table et quel champ.
+L'objectif était de créer un système automatisé capable d'extraire, centraliser et structurer l'ensemble des métadonnées techniques issues des différents jobs (talend/soclegen,microservices). L'outil doit permettre aux développeurs de requêter instantanément le "data lineage" (la lignée de la donnée) pour savoir exactement quel job Talend ou quel module du **Socle Générique** (notre technologie interne en Java Spring Boot) manipule quelle table et quel champ.
 
 ---
 
@@ -40,7 +40,7 @@ Ma première tâche a été de mettre en place l'environnement d'accueil des don
 
 Les métadonnées extraites des applications sont déposées sous forme de fichiers JSON bruts.
 
-J'ai réalisé la configuration du pipeline qui déplace ces fichiers sur le NAS puis vers le stockage HDFS. Ensuite, à l'aide de traitements **Spark**, ces JSON sont parsés et injectés dans nos tables Hive. J'ai dû veiller à la bonne granularité de l'ingestion, segmentée en trois niveaux pour Talend et 4 pour la partie Socle Generique :
+J'ai réalisé la configuration du pipeline qui déplace ces fichiers sur le NAS puis vers le stockage HDFS. Ensuite, à l'aide de traitements **Spark**, ces JSON sont parsés et injectés dans nos tables Hive. J'ai dû veiller à la bonne granularité de l'ingestion, segmentée en trois niveaux pour Talend et 4 pour la partie Socle Generique, tout en restant dans une approche flexible qui marcherait même avec des nouvelles valeurs dans les traitements :
 
 1. Les **Job** (niveau le plus haut),
 2. Les **Composant / Stage** (les étapes internes du traitement),
@@ -66,7 +66,7 @@ Grâce à cette structuration, un développeur peut aujourd'hui lancer une simpl
 ## Difficultés rencontrées & Solutions apportées
 
 * **Le choc des cultures techniques** : La plus grande complexité résidait dans la diversité des formats. Talend génère des métadonnées très verbeuses basées sur du XML/Java, tandis que le Socle Générique s'appuie sur du YAML sous Spring Boot. J'ai dû analyser ces deux structures pour concevoir un mapping d'ingestion unique capable de traduire proprement ces deux mondes dans le même modèle Hive.
-* **La volumétrie et les contraintes de l'architecture** : Manipuler des environnements distribués (Hadoop/Spark) implique des règles strictes sur la gestion des droits, la cohérence des transactions et le volume des données. Chaque traitement Spark d'ingestion a dû être testé rigoureusement pour éviter les corruptions de données lors des écritures concurrentes dans Hive.
+* **La volumétrie et les contraintes de l'architecture** : Manipuler des environnements distribués (Hadoop/Spark) implique des règles strictes sur la gestion des droits, la cohérence des transactions et le volume des données.
 
 ---
 
